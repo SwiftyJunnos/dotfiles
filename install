@@ -16,6 +16,7 @@ set -eu
 chezmoi=$(command -v chezmoi)
 
 if [ -z "$chezmoi" ]; then
+    print_info "chezmoi is not installed. Continue after  installing chezmoi!"
     os=$(uname -s)
     case "$os" in
         Darwin)
