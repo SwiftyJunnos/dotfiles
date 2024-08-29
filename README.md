@@ -5,11 +5,12 @@ This repository is built for my personal use, but feel free to use it as a templ
 
 ## Installation
 
+Using `curl`:
 ```sh
-# Using curl
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/SwiftyJunnos/dotfiles/main/install)"
-
-# Using wget
-sh -c "$(wget -q0- https://raw.githubusercontent.com/SwiftyJunnos/dotfiles/main/install)"
 ```
 
+Using `wget`:
+```sh
+sh -c "$(wget -q0- https://raw.githubusercontent.com/SwiftyJunnos/dotfiles/main/install)"
+```
