@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+print_info() {
+  printf "\033[0;32m:> %s\033[0m\n" "$*"
+}
+
+print_error() {
+    printf "\033[0;31m%s\033[0m\n" "$*" >&2
+    exit 1
+}
+
+# -e: exit on error
+# -u: exit on undefined variable
+set -eu
+
+if ! chezmoi="$(command -v chezmoi)"; then
+    bin_dir="${HOME}/.local/bin"
+    chezmoi="${bin_dir}/chezmoi"
+    print_info "Installing chezmoi to ${chezmoi}"
+
+    if command -v curl >/dev/null; then
+        install_script="$(curl -fsSL https://git.io/chezmoi)"
+    elif command -v wget >/dev/null; then
+        install_script="$(wget -q0- https://git.io/chezmoi)"
+    else
+        print_error "To install chezmoi, you must have curl or wget installed."
+    fi
+
+    sh -c "${install_script} --bin-path ${bin_dir}"
+    unset install_script bin_dir
+fi
+
+# Current directory where script is running
+script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
+extra_args="--apply --verbose"
+
+print_info "Running chezmoi init"
+retry_count=0
+{
+    exec "${chezmoi}" init --source "${script_dir}" "${extra_args}"
+} || {
+    retry_count=$((retry_count + 1))
+    print_info "chezmoi init failed... retrying attempt $retry_count"
+    exec "${chezmoi}" init --source "${script_dir}" "${extra_args}"
+}

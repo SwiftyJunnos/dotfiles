@@ -1,0 +1,26 @@
+{{ $name := promptChoiceOnce . "name" "What is your name?" "Junnos " -}}
+{{- $email := promptChoiceOnce . "email" "What is your email address?" "junnos.dev@gmail.com" -}}
+
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+    {{- $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+[data]
+    name = "{{ $name }}"
+    email = "{{ $email }}"
+
+    locale = "en_KR.UTF-8"
+    timezone = "Asia/Seoul"
+
+    {{- if or (lookPath "cursor") }}
+    editor = "cursor --wait --diff $LOCAL $REMOTE"
+    {{- else if lookPath "code" }}
+    editor = "code --wait --diff $LOCAL $REMOTE"
+    {{- else if lookPath "vim" }}
+    editor = "vim"
+    {{- else if lookPath "nano" }}
+    editor = "nano"
+    {{- else }}
+    editor = "vi"
+    {{- end }}

@@ -1,0 +1,4 @@
+# Ignore following files when applying chezmoi
+README.md
+install
+.github
