@@ -15,7 +15,7 @@ set -eu
 
 chezmoi=$(command -v chezmoi)
 
-if [[ -z "$chezmoi" ]]; then
+if [ -z "$chezmoi" ]; then
     os=$(uname -s)
     case "$os" in
         Darwin)
@@ -59,7 +59,7 @@ extra_args="--apply --verbose"
 print_info "Running chezmoi init"
 max_retries=3
 for retry_count in $(seq 0 $max_retries); do
-    if "${chezmoi}" init --source "${script_dir}" ${extra_args}; then
+    if "$(command -v chezmoi)" init --source "${script_dir}" ${extra_args}; then
         break
     elif [ $retry_count -lt $max_retries ]; then
         print_info "chezmoi init failed... retrying (attempt $((retry_count + 1)) of $max_retries)"
