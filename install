@@ -49,15 +49,17 @@ if [[ -z "$chezmoi" ]]; then
 fi
 
 # Current directory where script is running
-script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
+script_dir="$(dirname -- "$(readlink -f -- "$0")")"
 extra_args="--apply --verbose"
 
 print_info "Running chezmoi init"
-retry_count=0
-{
-    exec "${chezmoi}" init --source "${script_dir}" "${extra_args}"
-} || {
-    retry_count=$((retry_count + 1))
-    print_info "chezmoi init failed... retrying attempt $retry_count"
-    exec "${chezmoi}" init --source "${script_dir}" "${extra_args}"
-}
+max_retries=3
+for retry_count in $(seq 0 $max_retries); do
+    if "${chezmoi}" init --source "${script_dir}" ${extra_args}; then
+        break
+    elif [ $retry_count -lt $max_retries ]; then
+        print_info "chezmoi init failed... retrying (attempt $((retry_count + 1)) of $max_retries)"
+    else
+        print_error "chezmoi init failed after $max_retries attempts"
+    fi
+done
