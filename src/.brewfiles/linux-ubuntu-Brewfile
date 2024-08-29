@@ -1,0 +1,7 @@
+tap "homebrew/bundle"
+brew "chezmoi"
+brew "python@3.12"
+brew "fastfetch"
+brew "gh"
+brew "gitmoji"
+brew "pyenv"
