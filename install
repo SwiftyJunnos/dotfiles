@@ -41,12 +41,16 @@ if [[ -z "$chezmoi" ]]; then
             else
                 print_error "This script only supports Ubuntu for Linux systems."
             fi
+
+            unset bin_dir
             ;;
         *)
             print_error "This script only supports macOS and Ubuntu"
             ;;
     esac
 fi
+
+unset chezmoi
 
 # Current directory where script is running
 script_dir="$(dirname -- "$(readlink -f -- "$0")")"
