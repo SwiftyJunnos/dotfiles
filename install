@@ -13,21 +13,39 @@ print_error() {
 # -u: exit on undefined variable
 set -eu
 
-if ! chezmoi="$(command -v chezmoi)"; then
-    bin_dir="${HOME}/.local/bin"
-    chezmoi="${bin_dir}/chezmoi"
-    print_info "Installing chezmoi to ${chezmoi}"
+chezmoi=$(command -v chezmoi)
 
-    if command -v curl >/dev/null; then
-        install_script="$(curl -fsSL https://git.io/chezmoi)"
-    elif command -v wget >/dev/null; then
-        install_script="$(wget -q0- https://git.io/chezmoi)"
-    else
-        print_error "To install chezmoi, you must have curl or wget installed."
-    fi
-
-    sh -c "${install_script} --bin-path ${bin_dir}"
-    unset install_script bin_dir
+if [[ -z "$chezmoi" ]]; then
+    os=$(uname -s)
+    case "$os" in
+        Darwin)
+            if command -v brew >/dev/null; then
+                print_info "Installing chezmoi via Homebrew"
+                brew install chezmoi
+            else
+                print_error "To install chezmoi, you must have Homebrew installed."
+            fi
+            ;;
+        Linux)
+            if [ -f "/etc/lsb-release" ] && grep -q "Ubuntu" "/etc/lsb-release"; then
+                bin_dir="${HOME}/.local/bin"
+                chezmoi="${bin_dir}/chezmoi"
+                print_info "Installing chezmoi to ${chezmoi}"
+                if command -v curl >/dev/null; then
+                    sh -c "$(curl -fsSL get.chezmoi.io)" -- -b "$bin_dir"
+                elif command -v wget >/dev/null; then
+                    sh -c "$(wget -qO- get.chezmoi.io)" -- -b "$bin_dir"
+                else
+                    print_error "To install chezmoi, you must have curl or wget installed."
+                fi
+            else
+                print_error "This script only supports Ubuntu for Linux systems."
+            fi
+            ;;
+        *)
+            print_error "This script only supports macOS and Ubuntu"
+            ;;
+    esac
 fi
 
 # Current directory where script is running
