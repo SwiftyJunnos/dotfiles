@@ -49,6 +49,8 @@ if [ -z "$chezmoi" ]; then
             print_error "This script only supports macOS and Ubuntu"
             ;;
     esac
+else
+    print_info "chezmoi is already installed"
 fi
 
 unset chezmoi
