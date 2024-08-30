@@ -59,16 +59,4 @@ print_info "Running chezmoi init"
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 extra_args="--apply"
 
-max_retries=3
-
-for attempt in $(seq 1 $max_retries); do
-    if "${chezmoi}" init --source "${script_dir}" ${extra_args}; then
-        break
-    else
-        print_info "Attempt ${attempt} failed. Retrying..."
-
-        if [ $attempt -eq $max_retries ]; then
-            print_error "chezmoi init failed after $max_retries attempts"
-        fi
-    fi
-done
+exec "${chezmoi}" init --source "${script_dir}" ${extra_args}
