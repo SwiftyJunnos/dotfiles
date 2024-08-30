@@ -57,7 +57,7 @@ unset chezmoi
 # Current directory where script is running
 print_info "Running chezmoi init"
 
-target_dir="$(dirname -- "$(readlink -f -- "$0")")"
+script_dir="$(dirname -- "$(readlink -f -- "$0")")"
 extra_args="--apply --verbose"
 
 max_retries=3
