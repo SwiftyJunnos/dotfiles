@@ -13,6 +13,15 @@ print_error() {
 # -u: exit on undefined variable
 set -eu
 
+if ! command -v git >/dev/null; then
+    print_info "First, we'll install git for fetching chezmoi config."
+    if command -v sudo >/dev/null; then
+        sudo apt update && sudo apt install git -y
+    else
+        apt update && apt install git -y
+    fi
+fi
+
 if ! chezmoi="$(command -v chezmoi)"; then
     # check current os
     os=$(uname -s)
