@@ -43,13 +43,12 @@ if ! chezmoi="$(command -v chezmoi)"; then
             else
                 print_error "This script only supports Ubuntu for Linux systems."
             fi
-
-            unset bin_dir
             ;;
         *)
             print_error "This script only supports macOS and Ubuntu"
             ;;
     esac
+    unset bin_dir
 else
     print_info "chezmoi already installed. Continuing to initialization."
 fi
