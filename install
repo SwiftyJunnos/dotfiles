@@ -45,7 +45,7 @@ if ! chezmoi="$(command -v chezmoi)"; then
             fi
             ;;
         *)
-            print_error "This script only supports macOS and Ubuntu"
+            print_error "This script only supports macOS and Ubuntu."
             ;;
     esac
     unset bin_dir
@@ -58,4 +58,8 @@ print_info "Running chezmoi init"
 
 extra_args="--apply"
 
-exec "${chezmoi}" init ${extra_args}
+if exec "${chezmoi}" init ${extra_args}; then
+    print_info "chezmoi initialized at $(${chezmoi} source-path)"
+else
+    print_error "chezmoi initialization failed."
+fi
