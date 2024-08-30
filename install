@@ -63,12 +63,15 @@ else
 fi
 
 # Current directory where script is running
-print_info "Running chezmoi init"
+print_info "Enter your GitHub username to fetch chezmoi setups [default: SwiftyJunnos]: "
+read -r username
+
+name=${username:-SwiftyJunnos}
 
 extra_args="--apply"
 
 {
-    exec "${chezmoi}" init ${extra_args}
+    exec "${chezmoi}" init ${extra_args} ${name}
     print_info "chezmoi initialized at $(${chezmoi} source-path)"
 } || {
     print_error "chezmoi initialization failed."
