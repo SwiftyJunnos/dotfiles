@@ -20,7 +20,7 @@ if ! chezmoi="$(command -v chezmoi)"; then
     case $os in
         "Darwin")
             if command -v brew >/dev/null; then
-            bin_dir="$(brew --prefix)/bin"
+                bin_dir="$(brew --prefix)/bin"
                 chezmoi="${bin_dir}/chezmoi"
                 print_info "Installing chezmoi via 🍺 Homebrew to ${chezmoi}"
                 sh -c "brew install chezmoi"
@@ -56,7 +56,6 @@ fi
 # Current directory where script is running
 print_info "Running chezmoi init"
 
-script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 extra_args="--apply"
 
-exec "${chezmoi}" init --source "${script_dir}" ${extra_args}
+exec "${chezmoi}" init ${extra_args}
