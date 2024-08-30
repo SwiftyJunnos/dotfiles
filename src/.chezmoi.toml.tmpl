@@ -9,11 +9,6 @@
     {{- $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
 
-encryption = "age"
-
-[age]
-    identity = "${HOME}/
-
 [data]
     osid = {{ $osid | quote }}
 
