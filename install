@@ -60,12 +60,15 @@ script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 extra_args="--apply --verbose"
 
 max_retries=3
-for retry_count in $(seq 0 $max_retries); do
-    if "${chezmoi} init --source "${script_dir}" ${extra_args}"; then
+
+for attempt in $(seq 1 $max_retries); do
+    if "${chezmoi}" init --source "${script_dir}" ${extra_args}; then
         break
-    elif [ $retry_count -lt $max_retries ]; then
-        print_info "chezmoi init failed... retrying (attempt $((retry_count + 1)) of $max_retries)"
     else
-        print_error "chezmoi init failed after $max_retries attempts"
+        print_info "Attempt ${attempt} failed. Retrying..."
+
+        if [ $attempt -eq $max_retries ]; then
+            print_error "chezmoi init failed after $max_retries attempts"
+        fi
     fi
 done
