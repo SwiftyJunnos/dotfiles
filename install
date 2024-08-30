@@ -20,10 +20,12 @@ if ! chezmoi="$(command -v chezmoi)"; then
     case $os in
         "Darwin")
             if command -v brew >/dev/null; then
-                print_info "Installing chezmoi via 🍺 Homebrew"
-                brew install chezmoi
+            bin_dir="$(brew --prefix)/bin"
+                chezmoi="${bin_dir}/chezmoi"
+                print_info "Installing chezmoi via 🍺 Homebrew to ${chezmoi}"
+                sh -c "brew install chezmoi"
             else
-                print_error "To install chezmoi, you must have Homebrew installed."
+                print_error "To install chezmoi, you must have Homebrew installed first."
             fi
             ;;
         "Linux")
@@ -49,7 +51,7 @@ if ! chezmoi="$(command -v chezmoi)"; then
             ;;
     esac
 else
-    print_info "chezmoi is already installed"
+    print_info "chezmoi already installed. Continuing to initialization."
 fi
 
 # Current directory where script is running
