@@ -57,7 +57,7 @@ fi
 print_info "Running chezmoi init"
 
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
-extra_args="--apply --verbose"
+extra_args="--apply"
 
 max_retries=3
 
