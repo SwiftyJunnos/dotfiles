@@ -58,8 +58,9 @@ print_info "Running chezmoi init"
 
 extra_args="--apply"
 
-if exec "${chezmoi}" init ${extra_args}; then
+{
+    exec "${chezmoi}" init ${extra_args}
     print_info "chezmoi initialized at $(${chezmoi} source-path)"
-else
+} || {
     print_error "chezmoi initialization failed."
-fi
+}
