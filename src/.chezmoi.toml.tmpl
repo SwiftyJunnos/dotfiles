@@ -1,5 +1,6 @@
-{{ $name := promptChoiceOnce . "name" "What is your name?" "Junnos " -}}
+{{- $name := promptChoiceOnce . "name" "What is your name?" "Junnos " -}}
 {{- $email := promptChoiceOnce . "email" "What is your email address?" "junnos.dev@gmail.com" -}}
+{{- $signingKey := "${HOME}/.ssh/junnos_ed25519" -}}
 
 # macOS: darwin
 # ubuntu: linux-ubuntu
@@ -7,6 +8,11 @@
 {{- if hasKey .chezmoi.osRelease "id" -}}
     {{- $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
 {{- end -}}
+
+encryption = "age"
+
+[age]
+    identity = "${HOME}/
 
 [data]
     osid = {{ $osid | quote }}
@@ -16,6 +22,9 @@
 
     locale = "en_KR.UTF-8"
     timezone = "Asia/Seoul"
+
+    signing_format = "ssh"
+    signing_key = "${HOME}/.ssh/junnos_ed25519"
 
     {{- if or (lookPath "cursor") }}
     editor = "cursor --wait --diff $LOCAL $REMOTE"
