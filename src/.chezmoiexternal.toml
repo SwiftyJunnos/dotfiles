@@ -24,7 +24,7 @@ refreshPeriod = "24h"
 
 [".local/share/fonts"]
 type = "archive"
-url = "https://github.com/ryanoasis/nerd-fonts/releases/download/FiraMono.tar.xz"
+url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraMono.tar.xz"
 include = ["*.otf", ".ttf"]
 exact = true
 refreshPeriod = "336h" # 2 weeks
