@@ -12,3 +12,5 @@ $brew bundle --no-lock --file={{ .chezmoi.sourceDir }}/.brewfiles/{{ .chezmoi.os
 
 # 3. Upgrade already-installed brew packages
 $brew update && $brew upgrade
+
+{{- end -}}
