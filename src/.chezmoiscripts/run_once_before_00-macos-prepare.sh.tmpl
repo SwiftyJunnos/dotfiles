@@ -8,7 +8,7 @@ brew="$(brew --prefix)/bin/brew"
 $brew --version
 
 # 2. Install brew packages
-$brew bundle --no-lock --file={{ .chezmoi.sourceDir }}/.brewfiles/{{ .chezmoi.osid }}-Brewfile
+$brew bundle --no-lock --file={{ .chezmoi.sourceDir }}/.brewfiles/{{ .osid }}-Brewfile
 
 # 3. Upgrade already-installed brew packages
 $brew update && $brew upgrade
