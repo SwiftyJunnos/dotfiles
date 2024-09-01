@@ -12,6 +12,8 @@ $brew bundle --no-lock --file={{ .chezmoi.sourceDir }}/.brewfiles/{{ .chezmoi.os
 
 # 3. Upgrade already-installed brew packages
 $brew update && $brew upgrade
+
+# 4. Change default sh to zsh
 chsh -s $(which zsh)
 
 {{- end -}}
