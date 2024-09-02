@@ -60,9 +60,6 @@ plugins=(
     {{- if or (lookPath "brew") }}
     brew
     {{- end }}
-    {{- if or (lookPath "chezmoi") }}
-    chezmoi
-    {{- end }}
     {{- if or (lookPath "gh") }}
     gh
     {{- end }}
