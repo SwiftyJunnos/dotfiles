@@ -2,14 +2,19 @@
 #!/usr/bin/env bash
 set -ev pipefail
 
-# 1. apt update
-apt update && apt upgrade -y
-apt install zsh -y
-chsh -s $(which zsh)
+# 0. Check if sudo is possible
+if command -v sudo &> /dev/null; then
+    SUDO="sudo"
+else
+    SUDO=""
+fi
 
-apt-get install -y \
-    1password \
-    1password-cli \
+# 1. apt update
+$SUDO apt update && $SUDO apt upgrade -y
+$SUDO apt install zsh -y
+$SUDO chsh -s $(which zsh)
+
+$SUDO apt-get install -y \
     build-essential \
     locales \
     net-tools \
