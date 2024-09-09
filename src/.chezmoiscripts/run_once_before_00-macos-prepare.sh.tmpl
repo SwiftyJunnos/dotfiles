@@ -7,14 +7,4 @@ which -a brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Ho
 brew="$(brew --prefix)/bin/brew"
 $brew --version
 
-# 2. Install brew packages
-$brew bundle --no-lock --file={{ .chezmoi.sourceDir }}/.brewfiles/{{ .chezmoi.os }}-Brewfile
-
-# 3. Upgrade already-installed brew packages
-$brew update && $brew upgrade
-
-# 4. Change default sh to zsh
-sudo sh -c "echo $(which zsh) >> /etc/shells"
-chsh -s $(which zsh)
-
 {{- end -}}

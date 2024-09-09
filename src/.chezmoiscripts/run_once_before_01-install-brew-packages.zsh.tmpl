@@ -1,0 +1,18 @@
+{{- if or (eq .chezmoi.os "linux") (eq .chezmoi.os "darwin") -}}
+#!/usr/bin/env bash
+
+set -ev pipefail
+
+brew="$(brew --prefix)/bin/brew"
+
+# 1. Install brew packages
+$brew bundle --no-lock --file={{ .chezmoi.sourceDir }}/.brewfiles/{{ .chezmoi.os }}-Brewfile
+
+# 2. Upgrade already-installed brew packages
+$brew update && $brew upgrade
+
+# 3. Change default sh to zsh
+sudo sh -c "echo $(which zsh) >> /etc/shells"
+chsh -s $(which zsh)
+
+{{- end -}}
