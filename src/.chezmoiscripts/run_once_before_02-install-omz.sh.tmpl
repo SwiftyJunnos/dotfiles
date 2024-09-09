@@ -4,7 +4,9 @@
 set -ev pipefail
 
 # 1. Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
 # 2. Change default sh to ZSH
 if [[ $(awk -F ":${HOME}:" 'NF>1 {print $2}' /etc/passwd) != $(which zsh) ]]; then
