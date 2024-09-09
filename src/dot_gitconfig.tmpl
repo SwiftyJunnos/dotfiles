@@ -1,0 +1,22 @@
+[init]
+	defaultBranch = main
+
+[credential "https://github.com"]
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+
+[gpg]
+	format = ssh
+
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+	signingkey = {{ onepasswordRead "op://Work/id_ed25519/public key" }}
+
+[gpg "ssh"]
+	allowedsignersfile = {{ .chezmoi.homeDir }}/.ssh/allowed_signers
+
+[credential]
+	helper = store
