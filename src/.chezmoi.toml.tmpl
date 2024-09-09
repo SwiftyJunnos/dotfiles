@@ -1,6 +1,6 @@
 {{- $name := promptStringOnce . "name" "What is your name?" "Junnos " -}}
 {{- $email := promptStringOnce . "email" "What is your email address?" "junnos.dev@gmail.com" -}}
-{{- $signingKey := "${HOME}/.ssh/junnos_ed25519" -}}
+{{- $signingKey := onepasswordRead "op://Work/id_ed25519/public key" -}}
 
 # macOS: darwin
 # ubuntu: linux-ubuntu
@@ -10,7 +10,7 @@
 {{- end -}}
 
 [data]
-    osid = "{{ $osid }}"
+    osid = {{ $osid | quote }}
 
     name = "{{ $name }}"
     email = "{{ $email }}"
@@ -18,8 +18,9 @@
     locale = "en_KR.UTF-8"
     timezone = "Asia/Seoul"
 
+    signing_key = "{{ $signingKey }}"
     signing_format = "ssh"
-    signing_key = "${HOME}/.ssh/junnos_ed25519"
+    signing_ssh_program = "/opt/1Password/op-ssh-sign"
 
     {{- if or (lookPath "cursor") }}
     editor = "cursor --wait --diff $LOCAL $REMOTE"
@@ -32,3 +33,10 @@
     {{- else }}
     editor = "vi"
     {{- end }}
+
+[onepassword]
+    prompt = true
+
+[edit]
+    command = "cursor"
+    args = ["--wait"]
