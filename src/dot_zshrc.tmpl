@@ -95,8 +95,3 @@ export PATH="$HOME/.local/bin:$PATH"
 if command -v fastfetch &> /dev/null; then
     fastfetch
 fi
-
-# 1password
-{{ if or (eq .chezmoi.os "linux") }}
-alias op='1password'
-{{- end -}}
