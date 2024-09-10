@@ -20,7 +20,11 @@
 
     signing_key = "{{ $signingKey }}"
     signing_format = "ssh"
+    {{- if eq $osid "linux-ubuntu" }}
     signing_ssh_program = "/opt/1Password/op-ssh-sign"
+    {{- else if eq $osid "darwin" }}
+    signing_ssh_program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+    {{- end }}
 
     {{- if or (lookPath "cursor") }}
     editor = "cursor --wait --diff $LOCAL $REMOTE"

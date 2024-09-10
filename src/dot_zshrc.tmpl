@@ -91,6 +91,15 @@ source $ZSH/oh-my-zsh.sh
 # .local path
 export PATH="$HOME/.local/bin:$PATH"
 
+# 1password
+if command -v op &> /dev/null; then
+    eval "$(op completion zsh)"; compdef _op op # completion
+    source ~/.config/op/plugins.sh # plugins
+    {{- if (eq .chezmoi.os "linux") }}
+    eval $(op signin)
+    {{- end }}
+fi
+
 # fastfetch on shell launch
 if command -v fastfetch &> /dev/null; then
     fastfetch
