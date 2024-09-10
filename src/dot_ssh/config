@@ -1,0 +1,3 @@
+# By default, use 1Password SSH agent for all hosts
+Host *
+    IdentityAgent ~/.1password/agent.sock
