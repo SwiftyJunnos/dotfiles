@@ -2,6 +2,9 @@
 Host 121.126.210.*
     IdentityAgent ~/.1password/agent.sock
 
+Host github.com
+    IdentityAgent ~/.1password/agent.sock
+
 Host diq3
     HostName 121.126.210.3
     User junnos
