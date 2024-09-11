@@ -32,17 +32,12 @@
 
 {{- if and (.signing_key) (eq .signing_format "ssh") }}
 [gpg]
-    format = "ssh"
+    format = ssh
 
 [gpg "ssh"]
-    program = {{ .signing_ssh_program }}
+    program = "{{ .signing_ssh_program }}"
 {{- end }}
 
 [credential]
     helper = store
 
-[credential "https://github.com"]
-    helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
-
-[credential "https://gist.github.com"]
-    helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
