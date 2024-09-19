@@ -12,13 +12,13 @@
 [data]
     osid = {{ $osid | quote }}
 
-    name = "{{ $name }}"
-    email = "{{ $email }}"
+    name = {{ $name | quote }}
+    email = {{ $email | quote }}
 
     locale = "en_KR.UTF-8"
     timezone = "Asia/Seoul"
 
-    signing_key = "{{ $signingKey }}"
+    signing_key = {{ $signingKey | quote }}
     signing_format = "ssh"
     {{- if eq $osid "linux-ubuntu" }}
     signing_ssh_program = "/opt/1Password/op-ssh-sign"
@@ -42,5 +42,4 @@
     prompt = true
 
 [edit]
-    command = "cursor"
-    args = ["--wait"]
+    command = .editor
