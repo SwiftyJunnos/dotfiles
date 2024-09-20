@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # exit immediately if password-manager-binary is already in $PATH
+echo "Installing 1-password before configuring chezmoi"
 type password-manager-binary >/dev/null 2>&1 && exit
 
 case "$(uname -s)" in
