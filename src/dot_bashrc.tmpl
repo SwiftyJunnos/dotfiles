@@ -171,3 +171,6 @@ if [[ -n "$PS1" && -x "$(command -v zsh)" && "$(basename -- "$SHELL")" == "bash"
     export SHELL=$(command -v zsh)
     exec "$SHELL" -l
 fi
+
+# Linuxbrew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
