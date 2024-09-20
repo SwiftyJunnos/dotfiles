@@ -64,7 +64,7 @@ fi
 
 # Install 1password before chezmoi
 print_info "Installing 1Password-cli before chezmoi configuration..."
-exec "./.install-1password.sh"
+exec ".install-1password"
 
 # Current directory where script is running
 print_info "Enter your GitHub username to fetch chezmoi setups [default: SwiftyJunnos]: "
