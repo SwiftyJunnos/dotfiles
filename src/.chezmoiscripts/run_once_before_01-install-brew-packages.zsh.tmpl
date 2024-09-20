@@ -3,6 +3,12 @@
 
 set -ev pipefail
 
+if command -v sudo &> /dev/null; then
+    SUDO="sudo"
+else
+    SUDO=""
+fi
+
 brew="$(brew --prefix)/bin/brew"
 
 # 1. Install brew packages
@@ -12,7 +18,7 @@ $brew bundle --no-lock --file={{ .chezmoi.sourceDir }}/.brewfiles/{{ .chezmoi.os
 $brew update && $brew upgrade
 
 # 3. Change default sh to zsh
-sudo sh -c "echo $(which zsh) >> /etc/shells"
+$SUDO sh -c "echo $(which zsh) >> /etc/shells"
 chsh -s $(which zsh)
 
 {{- end -}}

@@ -3,6 +3,12 @@
 
 set -ev pipefail
 
+if command -v sudo &> /dev/null; then
+    SUDO="sudo"
+else
+    SUDO=""
+fi
+
 # 1. Install oh-my-zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -10,7 +16,7 @@ fi
 
 # 2. Change default sh to ZSH
 if [[ $(awk -F ":${HOME}:" 'NF>1 {print $2}' /etc/passwd) != $(which zsh) ]]; then
-    sudo chsh -s $(which zsh) $(whoami)
+    $SUDO chsh -s $(which zsh) $(whoami)
 fi
 
 {{- end -}}
