@@ -62,6 +62,10 @@ else
     print_info "chezmoi already installed. Continuing to initialization."
 fi
 
+# Install 1password before chezmoi
+print_info "Installing 1Password-cli before chezmoi configuration..."
+exec "./.install-1password.sh"
+
 # Current directory where script is running
 print_info "Enter your GitHub username to fetch chezmoi setups [default: SwiftyJunnos]: "
 read -r username
