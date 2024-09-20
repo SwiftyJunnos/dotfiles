@@ -7,6 +7,8 @@ case "$(uname -s)" in
 Darwin)
     # commands to install password-manager-binary on Darwin
     which -a brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/work/.bashrc
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     brew="$(brew --prefix)/bin/brew"
     $brew --version
 
