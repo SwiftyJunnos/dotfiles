@@ -1,8 +1,5 @@
 # By default, use 1Password SSH agent for all hosts
-Host 121.126.210.*
-	IdentityAgent ~/.1password/agent.sock
-
-Host github.com
+Host *
 	IdentityAgent ~/.1password/agent.sock
 
 Host diq3
