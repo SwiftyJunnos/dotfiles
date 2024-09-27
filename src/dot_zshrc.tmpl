@@ -69,6 +69,9 @@ plugins=(
     {{- if or (lookPath "pip") }}
     pip
     {{- end }}
+    {{- if or (lookPath "docker") }}
+    docker
+    {{- end }}
     {{ if (eq .osid "linux-ubuntu") }}
     ubuntu
     {{- end }}
@@ -95,9 +98,6 @@ export PATH="$HOME/.local/bin:$PATH"
 if command -v op &> /dev/null; then
     eval "$(op completion zsh)"; compdef _op op # completion
     source ~/.config/op/plugins.sh # plugins
-    {{- if (eq .chezmoi.os "linux") }}
-    eval $(op signin)
-    {{- end }}
 fi
 
 # fastfetch on shell launch
