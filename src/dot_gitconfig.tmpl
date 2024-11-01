@@ -30,6 +30,13 @@
     gpgsign = false
     {{ end -}}
 
+[tag]
+    {{ if .signing_key -}}
+    gpgsign = true
+    {{ else -}}
+    gpgsign = false
+    {{ end -}}
+
 {{- if and (.signing_key) (eq .signing_format "ssh") }}
 [gpg]
     format = ssh

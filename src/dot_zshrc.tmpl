@@ -104,3 +104,11 @@ fi
 if command -v fastfetch &> /dev/null; then
     fastfetch
 fi
+
+# pixi
+export PATH="$HOME/.pixi/bin:$PATH"
+
+{{ if (eq .chezmoi.os "darwin") }}
+# mise
+eval "$($HOME/.local/bin/mise activate zsh)"
+{{- end }}
