@@ -54,7 +54,7 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    {{- if or (lookPath "1password") }}
+    {{- if or (lookPath "op") }}
     1password
     {{- end }}
     {{- if or (lookPath "brew") }}
@@ -108,7 +108,14 @@ fi
 # pixi
 export PATH="$HOME/.pixi/bin:$PATH"
 
-{{ if (eq .chezmoi.os "darwin") }}
+{{- if (eq .chezmoi.os "darwin") }}
 # mise
 eval "$($HOME/.local/bin/mise activate zsh)"
 {{- end }}
+
+# hugginface-cli
+{{- if or (lookPath "op") }}
+alias hf="op plugin run -- huggingface-cli"
+{{- else }}
+alias hf="huggingface-cli"
+{{- end}}
